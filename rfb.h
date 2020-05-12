@@ -114,15 +114,15 @@ struct PixelFormat {
     uint8_t _padding[3] = { 0, 0, 0 };
 
     void ntoh() {
-        if (bigEndianFlag) {
-            redMax = ntohs(redMax);
-            greenMax = ntohs(greenMax);
-            blueMax = ntohs(blueMax);
-        }
+	redMax = ntohs(redMax);
+	greenMax = ntohs(greenMax);
+	blueMax = ntohs(blueMax);
     }
 
     void hton() {
-        bigEndianFlag = (__BYTE_ORDER == __BIG_ENDIAN);
+	redMax = htons(redMax);
+	greenMax = htons(greenMax);
+	blueMax = htons(blueMax);
     }
 
     bool operator==(const PixelFormat &another) const {
