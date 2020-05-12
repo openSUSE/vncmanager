@@ -623,7 +623,9 @@ void VncTunnel::processFramebufferUpdate()
                     } else {
                         bpp = 8;
                     }
-                }
+                } else if (m_pixelFormat.is888()) {
+		    bpp = 24;
+		}
 
                 std::size_t dataSize = (rectangle.width * bpp + 7) / 8 * rectangle.height;
                 if (dataSize < TightMinSizeToCompress) {

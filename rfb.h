@@ -147,6 +147,19 @@ struct PixelFormat {
         // Validating only things that could hurt vncmanager. If there are some other wrong values, underlying VNC server should complain.
         return bitsPerPixel == 8 || bitsPerPixel == 16 || bitsPerPixel == 24 || bitsPerPixel == 32;
     }
+
+    bool is888() const {
+	return
+	    trueColourFlag &&
+	    bitsPerPixel == 32 &&
+	    depth == 24 &&
+	    redMax == 255 &&
+	    greenMax == 255 &&
+	    blueMax == 255 &&
+	    (redShift & 0x07) == 0 &&
+	    (greenShift & 0x07) == 0 &&
+	    (blueShift & 0x07) == 0;
+    }
 };
 
 struct ServerInitMessage {
