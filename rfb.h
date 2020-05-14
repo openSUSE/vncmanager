@@ -523,13 +523,21 @@ struct VeNCryptPlainMessage {
 };
 
 struct TightCompressionControl {
+#if __BYTE_ORDER == __BIG_ENDIAN
+    unsigned rest : 4;
+
+    unsigned resetStream3 : 1;
+    unsigned resetStream2 : 1;
+    unsigned resetStream1 : 1;
+    unsigned resetStream0 : 1;
+#else
     unsigned resetStream0 : 1;
     unsigned resetStream1 : 1;
     unsigned resetStream2 : 1;
     unsigned resetStream3 : 1;
 
     unsigned rest : 4;
-
+#endif	// __BYTE_ORDER
     int useStream() const {
         return rest & 0x3;
     }
