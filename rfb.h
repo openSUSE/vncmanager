@@ -523,6 +523,10 @@ struct VeNCryptPlainMessage {
 };
 
 struct TightCompressionControl {
+
+    // Bitfields are allocated from MSB to LSB on big-endian
+    // systems, and from LSB to MSB on little-endian ones.
+
 #if __BYTE_ORDER == __BIG_ENDIAN
     unsigned rest : 4;
 
@@ -538,6 +542,7 @@ struct TightCompressionControl {
 
     unsigned rest : 4;
 #endif	// __BYTE_ORDER
+
     int useStream() const {
         return rest & 0x3;
     }
