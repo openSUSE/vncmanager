@@ -596,7 +596,7 @@ void VncTunnel::processFramebufferUpdate()
             cFmt().send(c);
 
             if (c.isFillCompression()) {
-                sFmt().forward_directly(cStream(), sizeof(TightPixel));
+                sFmt().forward_directly(cStream(), m_pixelFormat.depth / 8);
             }
 
             else if (c.isJpegCompression()) {
@@ -616,7 +616,7 @@ void VncTunnel::processFramebufferUpdate()
                     sFmt().forward(cStream(), paletteLength);
                     int actualPaletteLength = paletteLength + 1;
 
-                    sFmt().forward_directly(cStream(), sizeof(TightPixel) * actualPaletteLength);
+                    sFmt().forward_directly(cStream(), m_pixelFormat.depth / 8 * actualPaletteLength);
 
                     if (actualPaletteLength <= 2) {
                         bpp = 1;
