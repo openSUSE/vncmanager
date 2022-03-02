@@ -54,6 +54,7 @@ public:
     typedef std::function<void(int)> OpenSessionHandler;
     typedef std::function<void(std::string)> PasswordHandler;
     typedef std::function<void(std::string, std::string)> CredentialsHandler;
+    typedef std::function<void(void)> CancelAuthHandler;
 
 public:
     /**
@@ -95,6 +96,13 @@ public:
      * @param credentialsHandler Handler that will be called once the credentials are received.
      */
     void askForCredentials(CredentialsHandler credentialsHandler);
+    
+    /**
+     * @brief Set handler that will cancel the authentication process.
+     *
+     * @param cancelAuthHandler Handler that will be called on cancel authentication event.
+     */
+    void setCancelAuthHandler(CancelAuthHandler cancelAuthHandler);
 
     /**
      * Send request to show error to the greeter program.
@@ -123,6 +131,7 @@ private:
     OpenSessionHandler m_openSessionHandler;
     PasswordHandler m_passwordHandler;
     CredentialsHandler m_credentialsHandler;
+    CancelAuthHandler m_cancelAuthHandler;
 
     pid_t m_greeterPID;
 
